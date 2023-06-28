@@ -6,7 +6,7 @@
     font-family: 'poppins',sans-serif;
     
 }
-section{
+.login-section{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,7 +16,7 @@ section{
 }
 
 .form-value{
-    height: 80%;
+    height: 100%;
     padding: 60px;
     border-radius: 50px;
     background-color: white;
@@ -164,4 +164,3 @@ input:valid ~ label {
     text-decoration: underline;
     color: #002147;
 }
-

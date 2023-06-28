@@ -1,12 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 @import url('@fortawesome/fontawesome-free/css/all.css');
-*{
-    margin: 0;
-    padding: 0;
-    font-family: 'poppins',sans-serif;
-    
-}
-section{
+.register-section{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +21,7 @@ section{
 .form-box-register{
     position: relative;
     width: 400px;
-    height: 450px;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -164,4 +158,3 @@ input:valid ~ label {
     text-decoration: underline;
     color: #002147;
 }
-

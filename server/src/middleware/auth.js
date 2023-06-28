@@ -1,38 +1,25 @@
-const express = require('express');
+const jwt = require('jsonwebtoken');
 
-const app = express();
-
-const userAuth = (req, res, next) => {
-    console.log("MANTAP");
-    next();
-    // const token = req.cookies.token;
-    // if (!token) {
-    //     return res.json({ login: false, message: "login first" })
-    // } else {
-    //     jwt.verify(token, "secret", (err, decoded) => {
-    //         if (err) {
-    //             return res.json({ login: false, message: "error authentication" })
-    //         } else {
-    //             req.email = decoded.email;
-    //             req.role = decoded.role;
-    //             req.nama = decoded.nama;
-    //             req.id_account = decoded.id_account;
-    //             next();
-    //         }
-    //     })
-    // }
+const UserAuth = async (req, res, next) => {
+    const token = await req.cookies.token;
+    console.log(req.cookies.token);
+    if (!token) {
+        console.log({ login: false, message: "login first" });
+        return res.json({ login: false, message: "login first" })
+    } else {
+        jwt.verify(token, "secret", (err, decoded) => {
+            if (err) {
+                return res.json({ login: false, message: "error authentication" })
+            } else {   
+                req.email = decoded.email;
+                req.role = decoded.role;
+                req.name = decoded.name;
+                req.id_user = decoded.id_user;
+                next();
+            }
+        })
+    }
 }
 
-app.post("/auth", userAuth, (req, res) => {
-    return res.json({
-        login: true,
-        email: req.email,
-        role: req.role,
-        id_account: req.id_account,
-        nama: req.nama
-    })
-});
 
-module.exports = userAuth;
-
-
+module.exports = UserAuth;

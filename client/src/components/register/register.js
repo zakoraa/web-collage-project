@@ -1,35 +1,60 @@
 import './register.css'; 
 import { useNavigate } from 'react-router-dom';
+import { useRef, useState } from "react";
+import axios from "axios";
 
 const RegisterView = (props)=>{
+    const statusReff = useRef();
     const navigate = useNavigate();
+    const [name, setName] = useState();
+    const [id, setId] = useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [verifyPassword, setVerifyPassword] = useState();
+    const handleSubmit = async (e, name, id, email, password, verifyPassword) => {
+        e.preventDefault();
+        if (password === verifyPassword) {
+            console.log(id);
+            if (id == undefined || id == '') return statusReff.current.innerHTML = `ID can be ${id}`; statusReff.current.style.color = "red";
+            const res = await axios.post(`http://localhost:3000/register?name=${name}&id=${id}&email=${email}&password=${password}`);
+            if (res.data.message === "success") {
+                navigate("/home");
+            } else {
+                statusReff.current.innerHTML = "ID or Email Already used!";
+                statusReff.current.style.color = "red";
+            }
+        } else {
+            statusReff.current.innerHTML = "Password doesn't match !";
+            statusReff.current.style.color = "red";
+        }
+    }
     return (
-        <section>
+        <section className='register-section'>
             <div className="form-box-register">
                 <div className="form-value-register">
                     <form action="">
-                        <h2>{props.selectedPage} As <span style = {{color : props.selectedRole === "Admin"? 'blueviolet' : 'black'}}>{props.selectedRole}</span></h2>
+                        <h2>{props.selectedPage} As <span style = {{color : props.selectedRole === "Admin"? 'blueviolet' : 'black'}} ref={statusReff}>{props.selectedRole}</span></h2>
                         <div className="inputbox-register">
-                            <input type="text" required/>
-                            <label for="">Name</label>
+                            <input type="text" required = "true" onChange={(e) => { setId(e.target.value) }}/>
+                            <label for="">Id</label>
                         </div>
                         <div className="inputbox-register">
-                            <input type="text" required/>
-                            <label for="">Address </label>
+                            <input type="text" required = "true" onChange={(e) => { setName(e.target.value) }}/>
+                            <label for="">Name </label>
                         </div>
                         <div className="inputbox-register">
-                            <input type="text" required/>
+                            <input type="emali" required = "true" onChange={(e) => { setEmail(e.target.value) }}/>
                             <label for="">Email</label>
                         </div>
                         <div className="inputbox-register">
-                            <input type="text" required/>
-                            <label for="">No Handphone</label>
+                            <input type="password" required = "true" onChange={(e) => { setPassword(e.target.value) }}/>
+                            <label for="">Password</label>
                         </div>
                         <div className="inputbox-register">
-                            <input type="password" required/>
-                            <label for="">Password </label>
+                            <input type="password" required = "true" onChange={(e) => { setVerifyPassword(e.target.value) }}/>
+                            <label for="">Confirm Your Password </label>
                         </div>
-                        <button className = "loginbutton"onClick={()=> navigate(`/${props.rolePage}`)}>{props.selectedPage}</button>
+                        <button className = "loginbutton"onClick={(e) => { handleSubmit(e, name, id, email, password, verifyPassword) }}>{props.selectedPage}</button>
                         <div className="back-to-login">
                             <i className = "fas fa-arrow-left"></i>
                             <a onClick={()=> navigate(`/${props.roleLoginPage}`)}> Back to Login</a>
