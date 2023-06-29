@@ -3,7 +3,11 @@ import AddP from "../addProduct/add_product.module.css";
 const UpdateProduct = ()=>{
     return (
         <>
-        <h2>Update Product</h2>
+        <h2 style={
+            {
+                paddingTop : 90
+            }
+        }>Update Product</h2>
       <form className={AddP["form-container"]} >
       <div>
         <label htmlFor="name">Name :</label>
