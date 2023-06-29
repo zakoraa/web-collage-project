@@ -5,7 +5,7 @@ const UpdateProduct = ()=>{
         <>
         <h2 style={
             {
-                paddingTop : 90
+                paddingTop : 30
             }
         }>Update Product</h2>
       <form className={AddP["form-container"]} >

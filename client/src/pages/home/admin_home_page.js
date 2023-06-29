@@ -1,6 +1,5 @@
 // import { useEffect, useState } from "react";
 import axios from "axios";
-import HomeView from '../../components/home/home';
 import { FaSignOutAlt } from 'react-icons/fa';
 import HomeAdmin from'./home.module.css';
 import { useNavigate } from 'react-router-dom';
@@ -21,16 +20,14 @@ const AdminHomePage =()=>{
     return(
         <section>
         <div className={HomeAdmin["container"]}>
-            <div className={HomeAdmin["products"]}>
-            <button className={HomeAdmin["logout-button"]} onClick={handleLogout}>
+        <button className={HomeAdmin["logout-button"]} onClick={handleLogout}>
       <FaSignOutAlt className={HomeAdmin["logout-icon"]} /> Logout
     </button>
+            <div className={HomeAdmin["products"]}>        
             <ProductView isAdmin = {isAdmin}/>
-            </div>
-        <AddProduct className={HomeAdmin["cart" ]}/>
-        
+            </div>   
         </div>
-        
+        <AddProduct className={HomeAdmin["cart"]}/>    
     </section>
     );
 

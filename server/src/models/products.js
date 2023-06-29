@@ -12,6 +12,11 @@ exports.AddProduct = (req)=>{
     const { name, id_product, price, image } = req.query;
     const sqlQuery = `INSERT INTO product(id_product, price, name, image) VALUES ('${id_product}','${price}', '${name}', '${image}')`;
     const checker = `SELECT * FROM product WHERE id_product = '${id_product}' OR name = '${name}'`;
-
     return {sqlQuery, checker};
+}
+
+exports.DeleteProduct = (req)=>{
+    const {name} = req.query;
+    const sqlQuery = `DELETE FROM product WHERE name LIKE '%${name}%'`;
+    return {sqlQuery};
 }

@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { FaSignOutAlt } from 'react-icons/fa';
-import HomeView from '../../components/home/home';
 import HomeAdmin from'./home.module.css';
 import ShoppingCart from "../../components/shoppingCart/shopping_cart";
 import ProductView from "../../components/product/product";

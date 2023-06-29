@@ -43,7 +43,11 @@ return(
 <div className={Product["container"]}>
     <div className={Product["products"]}>
       <h2>ASUS OFFICIAL STORE</h2>
-      <button class={Product["search-button"]} onClick={showSearchPopup}><RiSearchLine />  Search</button>
+      <div style={{display:'flex' ,flexWrap : 'wrap', alignItems : 'center', justifyContent: 'center', marginTop : 30, marginBottom : 20, marginLeft : 30}}>
+      <button class={Product["search-button"]} onClick={showSearchPopup}>Add Product</button>
+      <button class={Product["search-button"]} onClick={showSearchPopup}>Update Product</button>
+      <button class={Product["search-button"]} onClick={showSearchPopup}>Delete Product</button>
+      </div>
       {isSearchPopupOpen && (
         <div className={Product["search-overlay"]}>
           <div className={Product["search-popup"]}>
@@ -62,18 +66,21 @@ return(
           allProducts.map((productMap, index)=>{
               return (
                 <div className={Product["product"]}>
-                                          <img src={productMap.image} alt="Product 1"/>
-                                          <h3>{productMap.name}</h3>
-                                          <p>IDR {productMap.price}</p>
-                                          
-                                         {!isAdmin &&(
-                                          <button className={Product["add-to-cart"]}>Add To Cart</button>
-                                         )}
-                                        </div>
-              )
+                  <div className={Product["image"]}>
+                    <img src={productMap.image} alt="Loading..."/>
+                    </div>                   
+                  <h3 style={{
+                    height : 35
+                  
+                  }}>{productMap.name}</h3>
+                  <p>IDR {productMap.price}</p>
+                  {!isAdmin &&(
+                    <button className={Product["add-to-cart"]}>Add To Cart</button>
+                  )}
+                   </div>
+              );
           })
-        }
-        
+        } 
       </div>
     </div>
     

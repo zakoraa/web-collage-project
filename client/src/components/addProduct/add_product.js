@@ -3,6 +3,7 @@ import UpdateProduct from '../updateProduct/update_product'
 import DeleteProduct from '../deleteProduct/delete_product';
 import { useNavigate } from 'react-router-dom';
 import { useRef, useState } from "react";
+import { FaSignOutAlt } from 'react-icons/fa';
 import axios from "axios";
 
 const AddProduct = ()=>{
@@ -20,7 +21,11 @@ const AddProduct = ()=>{
               window.location.reload();
                 return;
         }
-    }
+    
+      }
+      const handleLogout = () => {
+            navigate('/');
+        };
     return(
         <div className={AddP["cart"]}>
       <h2>Add Product</h2>
@@ -52,7 +57,6 @@ const AddProduct = ()=>{
       </div>
       <UpdateProduct />
       <DeleteProduct />
-
     </div>
     );
 }
