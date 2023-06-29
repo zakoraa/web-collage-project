@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { FaSignOutAlt } from 'react-icons/fa';
 import HomeView from '../../components/home/home';
 import HomeAdmin from'./home.module.css';
 import ShoppingCart from "../../components/shoppingCart/shopping_cart";
@@ -11,6 +12,12 @@ function UserHomePage() {
     const [login, setLogin] = useState('');
     const navigate = useNavigate();
     axios.defaults.withCredentials = true;
+    const isAdmin = false;
+
+    const handleLogout = () => {
+        navigate('/');
+    };
+
 
     // useEffect(() =>{
     //     try{
@@ -30,11 +37,13 @@ function UserHomePage() {
     // },[navigate]);
 
       return (
-  
         <section>
         <div className={HomeAdmin["container"]}>
             <div className={HomeAdmin["products"]}>
-            <ProductView />
+            <button className={HomeAdmin["logout-button"]} onClick={handleLogout}>
+      <FaSignOutAlt className={HomeAdmin["logout-icon"]} /> Logout
+    </button>
+            <ProductView isAdmin = {isAdmin}/>
             </div>
         <ShoppingCart className={HomeAdmin["cart" ]}/>
         

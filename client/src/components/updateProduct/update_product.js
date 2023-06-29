@@ -1,11 +1,9 @@
-import AddP from './add_product.module.css';
-import UpdateProduct from '../updateProduct/update_product'
-import DeleteProduct from '../deleteProduct/delete_product';
+import AddP from "../addProduct/add_product.module.css";
 
-const AddProduct = ()=>{
-    return(
-        <div className={AddP["cart"]}>
-      <h2>Add Product</h2>
+const UpdateProduct = ()=>{
+    return (
+        <>
+        <h2>Update Product</h2>
       <form className={AddP["form-container"]} >
       <div>
         <label htmlFor="name">Name :</label>
@@ -19,15 +17,12 @@ const AddProduct = ()=>{
         <label htmlFor="image">Picture :</label>
         <input type="text" id="image" className={AddP.inputText} />
       </div>
-      <button type="submit" className={AddP["submit-button"]}>Add</button>
+      <button type="submit" className={AddP["submit-button"]}>Update</button>
     </form>
       <div className={AddP["cart-items"]}>
       </div>
-      <UpdateProduct />
-      <DeleteProduct />
-
-    </div>
+      </>
     );
 }
 
-export default AddProduct;
+export default UpdateProduct;

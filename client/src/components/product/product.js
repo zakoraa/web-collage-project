@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react"
 import axios from "axios"
 
 
-const ProductView = ()=>{
+const ProductView = ({isAdmin})=>{
   const [isSearchPopupOpen, setSearchPopupOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [product, setProduct] = useState([]);
@@ -43,7 +43,7 @@ return(
 <div className={Product["container"]}>
     <div className={Product["products"]}>
       <h2>ASUS OFFICIAL STORE</h2>
-      <button class={Product["search-button"]} onClick={showSearchPopup}><RiSearchLine />  Seacrh</button>
+      <button class={Product["search-button"]} onClick={showSearchPopup}><RiSearchLine />  Search</button>
       {isSearchPopupOpen && (
         <div className={Product["search-overlay"]}>
           <div className={Product["search-popup"]}>
@@ -65,7 +65,10 @@ return(
                                           <img src={productMap.image} alt="Product 1"/>
                                           <h3>{productMap.name}</h3>
                                           <p>IDR {productMap.price}</p>
+                                          
+                                         {!isAdmin &&(
                                           <button className={Product["add-to-cart"]}>Add To Cart</button>
+                                         )}
                                         </div>
               )
           })
