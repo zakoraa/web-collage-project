@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(cookieParser());
 // app.use('/auth', userAuth);
 app.use('/', LoginRouters);
-app.use('/showproducts', ProductRouters);
+app.use('/products', ProductRouters);
 app.use('/register', RegisterRouters);
 app.use('/logout', UserLogout);
 

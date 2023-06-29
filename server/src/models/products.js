@@ -1,5 +1,10 @@
-exports.GetAllProducts = (req)=>{
-    const {sql} = req.query;
-    const sqlQuery = `SELECT * FROM product ${sql}`;
-    return sqlQuery;
+exports.GetAllProducts = ()=>{
+    const sqlQuery = "SELECT * FROM product";
+    return {sqlQuery};
 }
+
+exports.SeacrhProduct =(req)=>{
+    const sqlQuery = `SELECT * FROM product WHERE name LIKE '%${req.query.find}%'`;
+    return {sqlQuery};
+}
+
