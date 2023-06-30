@@ -27,7 +27,6 @@ const AdminHomePage =()=>{
             <ProductView isAdmin = {isAdmin}/>
             </div>   
         </div>
-        <AddProduct className={HomeAdmin["cart"]}/>    
     </section>
     );
 

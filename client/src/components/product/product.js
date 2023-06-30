@@ -2,14 +2,18 @@ import Product from './product.module.css';
 import { RiSearchLine } from 'react-icons/ri';
 import { useEffect, useState, useRef } from "react"
 import axios from "axios"
+import DeleteProduct from '../deleteProduct/delete_product';
+import AddProduct from '../addProduct/add_product';
+import UpdateProduct from '../updateProduct/update_product';
 
 
 const ProductView = ({isAdmin})=>{
-  const [isSearchPopupOpen, setSearchPopupOpen] = useState(false);
+  const [isAddPopupOpen, setAddPopupOpen] = useState(false);
+  const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);
+  const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [product, setProduct] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
-
 
   axios.defaults.withCredentials = true;
 
@@ -31,33 +35,72 @@ const ProductView = ({isAdmin})=>{
     fetchData(); 
 }, []);
   
-  const showSearchPopup = () => {
-    setSearchPopupOpen(true);
+  const showAddPopup = () => {
+    setAddPopupOpen(true);
   };
 
-  const hideSearchPopup = () => {
-    setSearchPopupOpen(false);
+  const hideAddPopup = () => {
+    setAddPopupOpen(false);
+  };
+
+  const showUpdatePopup = () => {
+    setUpdatePopupOpen(true);
+  };
+
+  const hideUpdatePopup = () => {
+    setUpdatePopupOpen(false);
+  };
+
+  const showDeletePopup = () => {
+    setDeletePopupOpen(true);
+  };
+
+  const hideDeletePopup = () => {
+    setDeletePopupOpen(false);
   };
 
 return(
 <div className={Product["container"]}>
     <div className={Product["products"]}>
-      <h2>ASUS OFFICIAL STORE</h2>
-      <div style={{display:'flex' ,flexWrap : 'wrap', alignItems : 'center', justifyContent: 'center', marginTop : 30, marginBottom : 20, marginLeft : 30}}>
-      <button class={Product["search-button"]} onClick={showSearchPopup}>Add Product</button>
-      <button class={Product["search-button"]} onClick={showSearchPopup}>Update Product</button>
-      <button class={Product["search-button"]} onClick={showSearchPopup}>Delete Product</button>
-      </div>
-      {isSearchPopupOpen && (
+      <h2 style={{
+        marginTop : 30
+      }}>ASUS OFFICIAL STORE</h2>
+      {!isAdmin && (
+        <div style={{
+          marginTop : 70
+        }}></div>
+      )}
+      {isAdmin && (<div style={{display:'flex' ,flexWrap : 'wrap', alignItems : 'center', justifyContent: 'center', marginTop : 30, marginBottom : 20, marginLeft : 30}}>
+      <button class={Product["search-button"]} onClick={showAddPopup}>Add Product</button>
+      <button class={Product["search-button"]} onClick={showUpdatePopup}>Update Product</button>
+      <button class={Product["search-button"]} onClick={showDeletePopup}>Delete Product</button>
+      </div>)}
+      {isAddPopupOpen && (
         <div className={Product["search-overlay"]}>
           <div className={Product["search-popup"]}>
-            <span className={Product["close"]} onClick={hideSearchPopup}>&times;</span>
-            <h3>Search Product</h3>
-            <div className={Product["search-form"]}>
-            <input className = {Product["search-input"]} type="text" placeholder="  Seacrh Product" 
-            onChange={(e) => {setProduct(e.target.value) }}/>
-            <button className={Product["search-submit"]}>Submit</button>
-          </div>
+            <span className={Product["close"]} onClick={hideAddPopup}>&times;</span>
+          <AddProduct/>
+        </div>
+        </div>
+        // <h3>Search Product</h3>
+        // <div className={Product["search-form"]}>
+        // <input className = {Product["search-input"]} type="text" placeholder="  Seacrh Product" 
+        // onChange={(e) => {setProduct(e.target.value) }}/>
+        // <button className={Product["search-submit"]}>Submit</button>
+      )}
+      {isUpdatePopupOpen && (
+        <div className={Product["search-overlay"]}>
+          <div className={Product["search-popup"]}>
+            <span className={Product["close"]} onClick={hideUpdatePopup}>&times;</span>
+          <UpdateProduct />
+        </div>
+        </div>
+      )}
+      {isDeletePopupOpen && (
+        <div className={Product["search-overlay"]}>
+          <div className={Product["search-popup"]}>
+            <span className={Product["close"]} onClick={hideDeletePopup}>&times;</span>
+          <DeleteProduct />
         </div>
         </div>
       )}

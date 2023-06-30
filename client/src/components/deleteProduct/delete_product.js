@@ -25,7 +25,7 @@ const DeleteProduct = ()=>{
         >Delete Product</h2>
       <form className={AddP["form-container"]} >
       <div>
-        <label htmlFor="name"
+        <label className={AddP["label"]} htmlFor="name"
         >Name :</label>
         <input type="text" id="name"className={AddP.inputText}
         onChange={(e) => {setName(e.target.value) }} />

@@ -2,7 +2,7 @@ import {useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { FaSignOutAlt } from 'react-icons/fa';
-import HomeAdmin from'./home.module.css';
+import HomeUser from'./user_home.module.css';
 import ShoppingCart from "../../components/shoppingCart/shopping_cart";
 import ProductView from "../../components/product/product";
 
@@ -37,14 +37,14 @@ function UserHomePage() {
 
       return (
         <section>
-        <div className={HomeAdmin["container"]}>
-            <div className={HomeAdmin["products"]}>
-            <button className={HomeAdmin["logout-button"]} onClick={handleLogout}>
-      <FaSignOutAlt className={HomeAdmin["logout-icon"]} /> Logout
+        <div className={HomeUser["container"]}>
+            <div className={HomeUser["products"]}>
+            <button className={HomeUser["logout-button"]} onClick={handleLogout}>
+      <FaSignOutAlt className={HomeUser["logout-icon"]} /> Logout
     </button>
             <ProductView isAdmin = {isAdmin}/>
             </div>
-        <ShoppingCart className={HomeAdmin["cart" ]}/>
+        <ShoppingCart className={HomeUser["cart" ]}/>
         
         </div>  
     </section>
