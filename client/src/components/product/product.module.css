@@ -39,9 +39,21 @@ h2{
 
 }
 
+.info{
+  display: flex;
+  float: right;
+  margin-right: 5px;
+}
+
+.info:hover{
+  cursor: pointer;
+}
+
 .image{
   height: 150px;
 }
+
+
 
 .product img {
   max-width: 80%;
@@ -69,6 +81,8 @@ h2{
   border-radius: 10px;
   cursor: pointer;
   font-size: small;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .add-to-cart:hover{

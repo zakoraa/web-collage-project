@@ -1,6 +1,5 @@
 import AddP from './add_product.module.css';
-import { useNavigate } from 'react-router-dom';
-import { useRef, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 const AddProduct = ()=>{

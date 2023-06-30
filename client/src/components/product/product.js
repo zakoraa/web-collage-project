@@ -1,18 +1,18 @@
 import Product from './product.module.css';
-import { RiSearchLine } from 'react-icons/ri';
 import { useEffect, useState, useRef } from "react"
 import axios from "axios"
 import DeleteProduct from '../deleteProduct/delete_product';
 import AddProduct from '../addProduct/add_product';
 import UpdateProduct from '../updateProduct/update_product';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
 const ProductView = ({isAdmin})=>{
   const [isAddPopupOpen, setAddPopupOpen] = useState(false);
   const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
-  const [searchInput, setSearchInput] = useState('');
-  const [product, setProduct] = useState([]);
+  const [isInfoPopupOpen, setInfoPopupOpen] = useState(false);
+const [selectedIdProduct, setSelectedIdProduct] = useState(null);
   const [allProducts, setAllProducts] = useState([]);
 
   axios.defaults.withCredentials = true;
@@ -26,14 +26,6 @@ const ProductView = ({isAdmin})=>{
     fetchData(); 
 }, []);
 
-  useEffect(() => {
-    async function fetchData() {
-        const res = await axios.get(`http://localhost:3000/products/search?find=${product}`);
-        const getProduct = res.data
-        setSearchInput(getProduct);
-    }
-    fetchData(); 
-}, []);
   
   const showAddPopup = () => {
     setAddPopupOpen(true);
@@ -57,6 +49,15 @@ const ProductView = ({isAdmin})=>{
 
   const hideDeletePopup = () => {
     setDeletePopupOpen(false);
+  };
+  const showInfoPopup = (idProduct) => {
+    setInfoPopupOpen(true);
+    setSelectedIdProduct(idProduct);
+  };
+
+  const hideInfoPopup = () => {
+    setInfoPopupOpen(false);
+    setSelectedIdProduct(null);
   };
 
 return(
@@ -109,6 +110,17 @@ return(
           allProducts.map((productMap, index)=>{
               return (
                 <div className={Product["product"]}>
+                  {isAdmin &&(
+                          <FontAwesomeIcon className = {Product["info"]} icon={faEllipsisV} size="lg" color="black" onClick={() => showInfoPopup(productMap.id_product)} />
+                  )}
+                 {isInfoPopupOpen && selectedIdProduct === productMap.id_product && (
+                    <div className={Product["search-overlay"]}>
+                      <div className={Product["search-popup"]}>
+                        <span className={Product["close"]} onClick={hideInfoPopup}>&times;</span>
+                        <h2>ID : {productMap.id_product}</h2>
+                      </div>
+                    </div>
+                  )}
                   <div className={Product["image"]}>
                     <img src={productMap.image} alt="Loading..."/>
                     </div>                   

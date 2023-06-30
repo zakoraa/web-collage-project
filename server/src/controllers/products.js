@@ -36,6 +36,17 @@ const AddProduct = async(req,res)=>{
     }
 }
 
+const UpdateProduct = async(req,res) =>{
+    const model = await ProductModel.UpdateProduct(req);
+    db.query(model.sqlQuery, (err,result)=>{
+        if(err) res.send(err);
+        res.send({
+            message : "Update Success",
+            data : result
+        });
+    });
+}
+
 const DeleteProduct = async(req,res)=>{
     const model = await ProductModel.DeleteProduct(req);
     db.query(model.sqlQuery, (err,result)=>{
@@ -51,5 +62,6 @@ module.exports = {
     GetAllProducts, 
     SeacrhProduct, 
     AddProduct,
+    UpdateProduct,
     DeleteProduct
 };
