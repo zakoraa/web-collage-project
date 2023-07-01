@@ -7,25 +7,33 @@ import UpdateProduct from '../updateProduct/update_product';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
-const ProductView = ({isAdmin})=>{
+const ProductView = ({isAdmin, cartItems, setCartItems})=>{
   const [isAddPopupOpen, setAddPopupOpen] = useState(false);
   const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
   const [isInfoPopupOpen, setInfoPopupOpen] = useState(false);
-const [selectedIdProduct, setSelectedIdProduct] = useState(null);
+  const [selectedIdProduct, setSelectedIdProduct] = useState(null);
   const [allProducts, setAllProducts] = useState([]);
 
   axios.defaults.withCredentials = true;
-
+  
   useEffect(() => {
     async function fetchData() {
-        const res = await axios.get("http://localhost:3000/products");
-        const getProduct = res.data
-        setAllProducts(getProduct);
+      const res = await axios.get("http://localhost:3000/products");
+      const getProduct = res.data
+      setAllProducts(getProduct);
     }
     fetchData(); 
-}, []);
+  }, []);
 
+  const addToCart = (product) => {
+    setCartItems([...cartItems, product]);
+  };
+
+  const removeFromCart = (product) => {
+    const updatedCartItems = cartItems.filter((item) => item.id_product !== product.id_product);
+    setCartItems(updatedCartItems);
+  };
   
   const showAddPopup = () => {
     setAddPopupOpen(true);
@@ -59,6 +67,8 @@ const [selectedIdProduct, setSelectedIdProduct] = useState(null);
     setInfoPopupOpen(false);
     setSelectedIdProduct(null);
   };
+
+
 
 return(
 <div className={Product["container"]}>
@@ -109,7 +119,7 @@ return(
         {
           allProducts.map((productMap, index)=>{
               return (
-                <div className={Product["product"]}>
+                <div className={Product["product"]} key={index}>
                   {isAdmin &&(
                           <FontAwesomeIcon className = {Product["info"]} icon={faEllipsisV} size="lg" color="black" onClick={() => showInfoPopup(productMap.id_product)} />
                   )}
@@ -130,7 +140,8 @@ return(
                   }}>{productMap.name}</h3>
                   <p>IDR {productMap.price}</p>
                   {!isAdmin &&(
-                    <button className={Product["add-to-cart"]}>Add To Cart</button>
+                    <button className={Product["add-to-cart"]}
+                    onClick={() => addToCart(productMap)}>Add To Cart</button>
                   )}
                    </div>
               );

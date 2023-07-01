@@ -10,8 +10,16 @@ import ProductView from "../../components/product/product";
 function UserHomePage() {
     const [login, setLogin] = useState('');
     const navigate = useNavigate();
+    const [cartItems, setCartItems] = useState([]);
+
+    const removeFromCart = (item) => {
+      const updatedCartItems = cartItems.filter((cartItem) => cartItem.id_product !== item);
+      setCartItems(updatedCartItems);
+    };
+
     axios.defaults.withCredentials = true;
     const isAdmin = false;
+  
 
     const handleLogout = () => {
         navigate('/');
@@ -42,9 +50,11 @@ function UserHomePage() {
             <button className={HomeUser["logout-button"]} onClick={handleLogout}>
       <FaSignOutAlt className={HomeUser["logout-icon"]} /> Logout
     </button>
-            <ProductView isAdmin = {isAdmin}/>
+            <ProductView 
+            isAdmin = {isAdmin}
+            cartItems={cartItems} setCartItems={setCartItems}/>
             </div>
-        <ShoppingCart className={HomeUser["cart" ]}/>
+        <ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} className={HomeUser["cart"]}/>
         
         </div>  
     </section>
