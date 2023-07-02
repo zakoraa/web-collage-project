@@ -11,7 +11,6 @@ const AdminHomePage =()=>{
     const navigate = useNavigate();
     axios.defaults.withCredentials = true;
     const isAdmin= true;
-
     
     const handleLogout = () => {
         navigate('/');

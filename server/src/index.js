@@ -1,12 +1,13 @@
 const express= require ('express');
 const cors= require ('cors');
+const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const LoginRouters =  require('./routes/login');
 const userAuth = require('./routes/auth');
 const UserLogout = require('./controllers/logout');
 const RegisterRouters = require('./routes/register');
 const ProductRouters = require('./routes/products');
-
+const TransactionRouters = require('./routes/transaction');
 
 const app = express();
 
@@ -18,14 +19,13 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(bodyParser.json());
 // app.use('/auth', userAuth);
 app.use('/', LoginRouters);
 app.use('/products', ProductRouters);
 app.use('/register', RegisterRouters);
 app.use('/logout', UserLogout);
-
-
-
+app.use('/transaction', TransactionRouters);
 
 app.listen(3000, ()=>{
     console.log("Server is running...");

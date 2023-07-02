@@ -4,9 +4,12 @@ import axios from "axios";
 
 const UserLoginPage = ()=>{
     return (
-        <LoginView selectedRole= "User" role = "Admin" selectedPage = "Log in"
+    
+            <LoginView selectedRole= "User" role = "Admin" selectedPage = "Log in"
         homePage = "home" roleLoginPage = "login/admin" roleRegisterPage = "register"
         handleSubmit = ""/>
+        
+        
     );
 }
 

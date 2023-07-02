@@ -17,7 +17,8 @@ const UserLogin = async(req,res)=>{
             res.cookie("token", token);
             return res.json({
                 message: "success",
-                role : role
+                role : role,
+                id : id_user
             });}
 });
 }

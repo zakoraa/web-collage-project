@@ -19,11 +19,12 @@ const LoginView = (props)=>{
         console.log(email);
         console.log(password);
         const res = await axios.post(`http://localhost:3000/?email=${email}&password=${password}`);
-        console.log(res.data);
+        console.log(res.data.id);
         if (res.data.message === "success" && res.data.role === "user") {
-            navigate("/home");
+            navigate(`/home/${res.data.id}`);
         }else if(res.data.message === "success" && res.data.role === "admin") {
-            navigate("/home/admin");
+            // setUser(res.data.id.toString());
+            navigate(`/home/admin/${res.data.id}`);
         }
     }
     return (

@@ -13,18 +13,23 @@ const UpdateProduct = ()=>{
         const res = await axios.post(`http://localhost:3000/products/update?name=${name}&id_product=${id_product}&price=${price}&image=${image}`);
         if (res.data.message === "Update Success") {
           window.location.reload();
-            return;
+          return;
     }
   }
     return (
       <div className={AddP["cart"]}>
       <h2>Update Product</h2>
       <form className={AddP["form-container"]} >
+      <p style={{
+        marginTop : 20
+      }}>Type Id that you want to update :</p>
+
       <div>
         <label className={AddP["label"]} htmlFor="id">Id :</label>
         <input type="text" id="id"className={AddP.inputText} 
         required = "true" onChange={(e) => { setId(e.target.value) }}/>
       </div>
+      <p>Update Data:</p>
       <div>
         <label className={AddP["label"]} htmlFor="name">Name :</label>
         <input type="text" id="name"className={AddP.inputText} 

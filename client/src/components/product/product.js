@@ -1,34 +1,54 @@
 import Product from './product.module.css';
-import { useEffect, useState, useRef } from "react"
+import {useEffect, useState } from "react";
 import axios from "axios"
 import DeleteProduct from '../deleteProduct/delete_product';
 import AddProduct from '../addProduct/add_product';
 import UpdateProduct from '../updateProduct/update_product';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { useParams } from 'react-router-dom';
 
 const ProductView = ({isAdmin, cartItems, setCartItems})=>{
+  const { id } = useParams();
   const [isAddPopupOpen, setAddPopupOpen] = useState(false);
   const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
   const [isInfoPopupOpen, setInfoPopupOpen] = useState(false);
   const [selectedIdProduct, setSelectedIdProduct] = useState(null);
   const [allProducts, setAllProducts] = useState([]);
+  const [idUserFK, setIdUserFK] = useState();
+  const [totalPrice, setTotalPrice]= useState();
+  const [idProductFK, setIdProductFK] = useState([]);
 
   axios.defaults.withCredentials = true;
   
   useEffect(() => {
     async function fetchData() {
       const res = await axios.get("http://localhost:3000/products");
-      const getProduct = res.data
+      const getProduct = res.data;
       setAllProducts(getProduct);
     }
     fetchData(); 
   }, []);
 
+  const handleAddToCart = async(e,idUserFK, idProductFK,totalPrice)=>{
+    e.preventDefault();
+    const res = await axios.post(`http://localhost:3000/transaction/add?id_userFK=${idUserFK}&id_productFK=${idProductFK}&total_price=${totalPrice}`);
+    if(res.data.message === "Add Transaction Success"){
+      console.log(res.data.result);
+      return;
+    }
+}
+
   const addToCart = (product) => {
     setCartItems([...cartItems, product]);
   };
+  const handleBuyProducts = (product, e,idUserFK, idProductFK,totalPrice)=>{
+    handleAddToCart(e,idUserFK, idProductFK,totalPrice);
+    addToCart(product);
+
+  }
+
 
   const removeFromCart = (product) => {
     const updatedCartItems = cartItems.filter((item) => item.id_product !== product.id_product);
@@ -141,7 +161,9 @@ return(
                   <p>IDR {productMap.price}</p>
                   {!isAdmin &&(
                     <button className={Product["add-to-cart"]}
-                    onClick={() => addToCart(productMap)}>Add To Cart</button>
+                    // onClick={() => addToCart(productMap)}
+                    onClick={(e)=>handleBuyProducts(productMap, e,id, productMap.id_product,productMap.price)}
+                    >Add To Cart</button>
                   )}
                    </div>
               );

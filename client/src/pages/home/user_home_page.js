@@ -6,7 +6,6 @@ import HomeUser from'./user_home.module.css';
 import ShoppingCart from "../../components/shoppingCart/shopping_cart";
 import ProductView from "../../components/product/product";
 
-
 function UserHomePage() {
     const [login, setLogin] = useState('');
     const navigate = useNavigate();
@@ -50,9 +49,10 @@ function UserHomePage() {
             <button className={HomeUser["logout-button"]} onClick={handleLogout}>
       <FaSignOutAlt className={HomeUser["logout-icon"]} /> Logout
     </button>
-            <ProductView 
+  <ProductView 
             isAdmin = {isAdmin}
             cartItems={cartItems} setCartItems={setCartItems}/>
+            
             </div>
         <ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} className={HomeUser["cart"]}/>
         
