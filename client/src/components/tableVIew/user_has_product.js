@@ -7,25 +7,26 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const TransactionTableView = () => {
-    const [allTransaction, setAllTransaction] = useState([]);
+const UserHasProductTableView = () => {
+    const [allUserHasProduct, setAllUserHasProduct] = useState([]);
     const navigate = useNavigate();
     axios.defaults.withCredentials = true;
 
     useEffect (()=>{
         const fetchData = async()=>{
-            const res = await axios.get("http://localhost:3000/transaction/get");
-            const getTransaction = res.data;
-            console.log(getTransaction);
-            setAllTransaction(getTransaction.data);
+            const res = await axios.get("http://localhost:3000/userhasproduct/get");
+            const getUserHasProduct = res.data;
+            console.log(getUserHasProduct);
+            setAllUserHasProduct(getUserHasProduct.data);
           }
           fetchData();
         }, []);
 
-        const handleDeleteTransaction = async (transactionId) => {
+    
+        const handleDeleteUserHasProduct = async (userId, productId) => {
           try {
-            const res = await axios.post(`http://localhost:3000/transaction/delete?transaction_id=${transactionId}`);
-            if(res.data.message === "Delete Transaction Success"){
+            const res = await axios.post(`http://localhost:3000/userhasproduct/delete?id_userFK=${userId}&id_productFK=${productId}`);
+            if(res.data.message === "Delete Success"){
               window.location.reload();
               return;
             }
@@ -33,6 +34,7 @@ const TransactionTableView = () => {
             console.log(error);
           }
         }
+      
     const handleBack = ()=>{
       navigate('/home/admin/:id');
     }
@@ -45,30 +47,24 @@ const TransactionTableView = () => {
     </button>
         <h2 style={{
             textAlign: "center"
-        }}>TRANSACTION TABLE</h2>
+        }}>USER HAS PRODUCT TABLE</h2>
         <hr className={Cart["hr"]}></hr>
       <table>
         <thead>
           <tr>
-            <th>Transaction ID</th>
             <th>User ID</th>
             <th>Product ID</th>
-            <th>Date</th>
-            <th>Total Price</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
         {
-          allTransaction.map(transaction=>{
+          allUserHasProduct.map(userHasProduct=>{
               return (
-                <tr key={transaction.transaction_id}>
-                  <td>{transaction.transaction_id}</td>
-                  <td>{transaction.id_userFK}</td>
-                  <td>{transaction.id_productFK}</td>
-                  <td>{transaction.date}</td>
-                  <td>Rp {transaction.total_price}</td>
-                  <button className={TableCSS["delete-button"]} onClick={()=>handleDeleteTransaction(transaction.transaction_id)} >
+                <tr >
+                  <td>{userHasProduct.id_userFK}</td>
+                  <td>{userHasProduct.id_productFK}</td>
+                  <button className={TableCSS["delete-button"]} onClick={() => handleDeleteUserHasProduct(userHasProduct.id_userFK, userHasProduct.id_productFK)}>
                     DELETE
                   </button>
                 </tr>
@@ -83,7 +79,7 @@ const TransactionTableView = () => {
   );
 };
 
-export default TransactionTableView;
+export default UserHasProductTableView;
 
 // useEffect (()=>{
 //   const fetchData = async()=>{

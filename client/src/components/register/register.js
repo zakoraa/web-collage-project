@@ -18,7 +18,7 @@ const RegisterView = (props)=>{
             if (id == undefined || id == '') return statusReff.current.innerHTML = `ID can be ${id}`; statusReff.current.style.color = "red";
             const res = await axios.post(`http://localhost:3000/register?name=${name}&id=${id}&email=${email}&password=${password}`);
             if (res.data.message === "success") {
-                navigate("/home");
+                navigate(`/home/${res.data.id}`);
             } else {
                 statusReff.current.innerHTML = "ID or Email Already used!";
                 statusReff.current.style.color = "red";
@@ -36,7 +36,7 @@ const RegisterView = (props)=>{
                         <h2>{props.selectedPage} As <span style = {{color : props.selectedRole === "Admin"? 'blueviolet' : 'black'}} ref={statusReff}>{props.selectedRole}</span></h2>
                         <div className="inputbox-register">
                             <input type="text" required = "true" onChange={(e) => { setId(e.target.value) }}/>
-                            <label for="">Id</label>
+                            <label for="">Id Starts With P10...</label>
                         </div>
                         <div className="inputbox-register">
                             <input type="text" required = "true" onChange={(e) => { setName(e.target.value) }}/>

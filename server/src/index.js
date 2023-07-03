@@ -8,6 +8,8 @@ const UserLogout = require('./controllers/logout');
 const RegisterRouters = require('./routes/register');
 const ProductRouters = require('./routes/products');
 const TransactionRouters = require('./routes/transaction');
+const UserRouters = require('./routes/user');
+const UserHasProductRouters = require('./routes/user_has_product');
 
 const app = express();
 
@@ -22,6 +24,8 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 // app.use('/auth', userAuth);
 app.use('/', LoginRouters);
+app.use('/user', UserRouters);
+app.use('/userhasproduct', UserHasProductRouters);
 app.use('/products', ProductRouters);
 app.use('/register', RegisterRouters);
 app.use('/logout', UserLogout);

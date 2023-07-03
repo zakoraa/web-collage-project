@@ -27,9 +27,9 @@ const DeleteTransaction = (req,res)=>{
     db.query(model.sqlQuery,(err,result)=>{
         if(err) res.send(err);
         console.log(req.query);
-        res.json({
+        res.send({
             message : "Delete Transaction Success",
-            id : req.query.transaction_id
+            id : result.body
         });
     });
 }

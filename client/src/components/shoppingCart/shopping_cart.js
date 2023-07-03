@@ -6,12 +6,23 @@ const ShoppingCart = ({cartItems, removeFromCart})=>{
   const [idUserFK, setIdUserFK] = useState();
   const [totalPrice, setTotalPrice]= useState();
   const [transactionId, setTransactionId] = useState();
+  const [allTransaction, setAllTransaction] = useState([]);
+  const [allUserHasProduct, setAllUserHasProduct] = useState([]);
+  axios.defaults.withCredentials = true;
 
+    useEffect (()=>{
+        const fetchData = async()=>{
+            const res = await axios.get("http://localhost:3000/transaction/get");
+            const getTransaction = res.data;
+            console.log(getTransaction.data);
+            setAllTransaction(getTransaction.data);
+          }
+          fetchData();
+        }, []);
 
-    const handleGetTransactionId = async (e,transactionId)=>{
-      e.preventDefault();
+    const handleGetTransactionId = async (transactionId)=>{
       const res = await axios.post(`http://localhost:3000/transaction/delete?transaction_id=${transactionId}`);
-      console.log(res.data.message);
+        console.log(res.data.message);
         setTransactionId(res.data.id);
         console.log(transactionId);
       if (res.data.message === "Delete Transaction Success") {  
@@ -20,12 +31,6 @@ const ShoppingCart = ({cartItems, removeFromCart})=>{
   }
   
     };
-  
-  
-  // for (const item of cartItems) {
-  //   const idProductFK = item.id_product;
-  //   setIdProductFK(idProductFK);
-  // }
 
   useEffect(() => {
     const calculateTotalPrice = () => {
@@ -45,12 +50,31 @@ const ShoppingCart = ({cartItems, removeFromCart})=>{
   //       return;
   //     }
   // }
+  const mergedArray = cartItems.map((item, index) => {
+    const mergedItem = {
+      ...item,
+      ...allTransaction[index]
+    };
+  
+    return mergedItem;
+  });
 
+  
+ 
+  // console.log("inin",mergedArray);
 
-  const handleRemoveItem = (e,transactionId,transaction_id) => {
-    handleGetTransactionId(e,transactionId);
-    removeFromCart(transaction_id);
-  };
+  // const handleRemoveItem = (e,transactionId,transaction_id) => {
+  //   handleGetTransactionId(e,transactionId);
+  //   removeFromCart(transaction_id);
+  // };
+
+  const handleRemoveItem = (item) => {
+    removeFromCart(item);}
+
+  const handleSubmit = ()=>{
+    window.location.reload();
+
+  }
 
     return(
         <div className={Cart["cart"]}>
@@ -60,12 +84,12 @@ const ShoppingCart = ({cartItems, removeFromCart})=>{
           <></>
         ) : <button 
         className={Cart["buy-product"]} 
-        // onClick={(e)=> handleBuyProducts(e,idUserFK,idProductFK,totalPrice)}
+        onClick={handleSubmit}
        >Buy Now </button>}
      
       <div className={Cart["cart-items"]}>
-            {cartItems.map((item, index) => (
-              <li key={index} className={Cart["cart-item"]}>
+            {mergedArray.map(item => (
+              <li key={item.transaction_id} className={Cart["cart-item"]}>
                 <div className={Cart["product-image"]}>
                   <img src={item.image} alt={item.name} />
                 </div>
@@ -74,7 +98,7 @@ const ShoppingCart = ({cartItems, removeFromCart})=>{
                   <p>IDR {item.price}</p>
                 <button 
                 className={Cart["delete-product"]}
-                onClick={(e) => handleGetTransactionId(e,transactionId)}>Delete</button>
+                onClick={() => handleRemoveItem(item.id_product)}>Delete</button>
                 </div>
               </li>
             ))}

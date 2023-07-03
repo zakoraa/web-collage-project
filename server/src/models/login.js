@@ -4,7 +4,3 @@ exports.UserLogin = (req)=>{
     const values = [email, password];
     return {sqlQuery, values};
 }
-exports.GetUsers = ()=>{
-    const sqlQuery = "SELECT * FROM user";
-    return {sqlQuery};
-}

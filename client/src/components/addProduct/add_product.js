@@ -13,7 +13,7 @@ const AddProduct = ()=>{
             const res = await axios.post(`http://localhost:3000/products/add?name=${name}&id_product=${id_product}&price=${price}&image=${image}`);
             if (res.data.message === "success") {
               window.location.reload();
-                return;
+              return;
         }
       }
     return(
@@ -22,6 +22,9 @@ const AddProduct = ()=>{
       <form className={AddP["form-container"]} >
       <div>
         <label className={AddP["label"]} htmlFor="id">Id :</label>
+        <p style = {{
+          fontWeight : 'lighter'
+        }}className={AddP["label"]}>Id Starts from B...</p>
         <input type="text" id="id"className={AddP.inputText} 
         required = "true" onChange={(e) => { setId(e.target.value) }}/>
       </div>

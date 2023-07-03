@@ -17,6 +17,8 @@
     margin-top: 10px;
   }
 
+  
+
   .hr {
     border: none; 
     border-top: 2px solid black; 
@@ -91,6 +93,10 @@
   align-self: center;
   border-radius: 5px;
 }
+.delete-product:hover{
+  background-color: rgb(241, 26, 26);
+
+}
 
 .buy-product:hover{
   background-color: rgb(43, 255, 0);
@@ -112,9 +118,4 @@
   position: relative;
   align-self: center;
   border-radius: 5px;
-}
-
-.delete-product:hover{
-  background-color: rgb(241, 26, 26);
-
 }

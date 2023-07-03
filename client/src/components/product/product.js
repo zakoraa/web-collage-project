@@ -1,6 +1,7 @@
 import Product from './product.module.css';
 import {useEffect, useState } from "react";
-import axios from "axios"
+import axios from "axios";
+import HomeAdmin from '../../pages/home/home.module.css'
 import DeleteProduct from '../deleteProduct/delete_product';
 import AddProduct from '../addProduct/add_product';
 import UpdateProduct from '../updateProduct/update_product';
@@ -16,11 +17,18 @@ const ProductView = ({isAdmin, cartItems, setCartItems})=>{
   const [isInfoPopupOpen, setInfoPopupOpen] = useState(false);
   const [selectedIdProduct, setSelectedIdProduct] = useState(null);
   const [allProducts, setAllProducts] = useState([]);
-  const [idUserFK, setIdUserFK] = useState();
-  const [totalPrice, setTotalPrice]= useState();
-  const [idProductFK, setIdProductFK] = useState([]);
-
+  const [allTransaction, setAllTransaction] = useState([]);
   axios.defaults.withCredentials = true;
+
+    useEffect (()=>{
+        const fetchData = async()=>{
+            const res = await axios.get("http://localhost:3000/transaction/get");
+            const getTransaction = res.data;
+            console.log(getTransaction.data);
+            setAllTransaction(getTransaction.data);
+          }
+          fetchData();
+        }, []);
   
   useEffect(() => {
     async function fetchData() {
@@ -34,11 +42,14 @@ const ProductView = ({isAdmin, cartItems, setCartItems})=>{
   const handleAddToCart = async(e,idUserFK, idProductFK,totalPrice)=>{
     e.preventDefault();
     const res = await axios.post(`http://localhost:3000/transaction/add?id_userFK=${idUserFK}&id_productFK=${idProductFK}&total_price=${totalPrice}`);
+    await axios.post(`http://localhost:3000/userhasproduct/add?id_userFK=${idUserFK}&id_productFK=${idProductFK}`);
     if(res.data.message === "Add Transaction Success"){
       console.log(res.data.result);
       return;
     }
 }
+
+
 
   const addToCart = (product) => {
     setCartItems([...cartItems, product]);
@@ -48,7 +59,6 @@ const ProductView = ({isAdmin, cartItems, setCartItems})=>{
     addToCart(product);
 
   }
-
 
   const removeFromCart = (product) => {
     const updatedCartItems = cartItems.filter((item) => item.id_product !== product.id_product);
@@ -102,9 +112,16 @@ return(
         }}></div>
       )}
       {isAdmin && (<div style={{display:'flex' ,flexWrap : 'wrap', alignItems : 'center', justifyContent: 'center', marginTop : 30, marginBottom : 20, marginLeft : 30}}>
-      <button class={Product["search-button"]} onClick={showAddPopup}>Add Product</button>
-      <button class={Product["search-button"]} onClick={showUpdatePopup}>Update Product</button>
-      <button class={Product["search-button"]} onClick={showDeletePopup}>Delete Product</button>
+      <div className={Product["header"]}>
+        <hr className={HomeAdmin["hr"]}></hr>
+        <div className={Product["header-submit"]}>
+        <button class={Product["search-button"]} onClick={showAddPopup}>Add Product</button>
+        <button class={Product["search-button"]} onClick={showUpdatePopup}>Update Product</button>
+        <button class={Product["search-button"]} onClick={showDeletePopup}>Delete Product</button>
+        </div>
+        
+        <hr className={HomeAdmin["hr"]}></hr>
+      </div>
       </div>)}
       {isAddPopupOpen && (
         <div className={Product["search-overlay"]}>

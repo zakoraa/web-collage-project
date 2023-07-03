@@ -22,16 +22,7 @@ const UserLogin = async(req,res)=>{
             });}
 });
 }
-const GetUsers = async(req,res)=>{
-    const model = await LoginModel.GetUsers();
-    db.query(model.sqlQuery, (err,result)=>{
-        if (err) throw err;
-        res.json({
-            data : result
-        });
-        
-});
-}
 
 
-module.exports = {UserLogin, GetUsers};
+
+module.exports = {UserLogin};

@@ -1,20 +1,22 @@
 .table-container {
-    max-width: 600px;
+    /* max-width: 600px; */
     margin: 0 auto;
+    width: 80%;
     padding: 20px;
+    margin-top: 30px;
   }
   
   table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
   }
   
   thead th {
+    text-align: center;
     background-color: #f1f1f1;
     color: #333;
     font-weight: bold;
     padding: 10px;
-    text-align: left;
   }
   
   tbody td {
@@ -40,3 +42,57 @@
   td {
     text-align: center;
   }
+
+  .logout-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 3px;
+    left: 10px;
+    height: 40px;
+    width: 100px;
+    margin-top: 30px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: grey;
+    transition: background-color 0.3s ease;
+  }
+  
+  
+  .logout-button:hover {
+    background-color: rgb(180, 179, 179);
+
+  }
+  
+  .logout-icon {
+    margin-right: 5px;
+    transform: rotate(180deg);
+    color : white;
+  }
+
+  .delete-button{
+    background-color: rgb(235, 78, 78);
+    border: none;
+    color: white;
+    padding : 5px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    align-self: center;
+    border-radius: 5px;
+    display: flex;
+    margin: 20px;
+  }
+  .delete-button:hover{
+    background-color: rgb(241, 26, 26);
+  
+  }
+
+  

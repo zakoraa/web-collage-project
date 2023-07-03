@@ -3,7 +3,7 @@ import {useNavigate}  from 'react-router-dom';
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const LoginView = (props)=>{
+const LoginView = (props,{isAdmin})=>{
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -42,9 +42,11 @@ const LoginView = (props)=>{
                             <label for="">Password </label>
                         </div>
                         <button onClick={(e) => { handleSubmit(e, email, password) }} className = "loginbutton">{props.selectedPage}</button>
-                        <div className = "to-register">
-                            <a onClick={()=> navigate(`/${props.roleRegisterPage}`)}>Don't have an account?</a>
-                        </div>
+                        {!isAdmin &&(
+                           <div className = "to-register">
+                           <a onClick={()=> navigate(`/${props.roleRegisterPage}`)}>Don't have an account?</a>
+                       </div> 
+                        )}
                         <div className="switch-role">
                             <a onClick={()=> navigate(`/${props.roleLoginPage}`)}>{props.selectedPage} as {props.role} </a>
                             <i className= "fas fa-arrow-right"></i>
