@@ -28,16 +28,46 @@ const AddProduct = async(req,res)=>{
                     res.send({ message: "success" });
                 })
             } else {
-                res.send("error");
+                res.send(err);
             } 
         });
     } catch (error) {
-        res.send("Internal Server Error");
+        res.send(error);
     }
 }
 
-const UpdateProduct = async(req,res) =>{
-    const model = await ProductModel.UpdateProduct(req);
+const UpdateProductAll = async(req,res) =>{
+    const model = await ProductModel.UpdateProductAll(req);
+    db.query(model.sqlQuery, (err,result)=>{
+        if(err) res.send(err);
+        res.send({
+            message : "Update Success",
+            data : result
+        });
+    });
+}
+const UpdateProductName = async(req,res) =>{
+    const model = await ProductModel.UpdateProductName(req);
+    db.query(model.sqlQuery, (err,result)=>{
+        if(err) res.send(err);
+        res.send({
+            message : "Update Success",
+            data : result
+        });
+    });
+}
+const UpdateProductPrice = async(req,res) =>{
+    const model = await ProductModel.UpdateProductPrice(req);
+    db.query(model.sqlQuery, (err,result)=>{
+        if(err) res.send(err);
+        res.send({
+            message : "Update Success",
+            data : result
+        });
+    });
+}
+const UpdateProductImage = async(req,res) =>{
+    const model = await ProductModel.UpdateProductImage(req);
     db.query(model.sqlQuery, (err,result)=>{
         if(err) res.send(err);
         res.send({
@@ -62,6 +92,9 @@ module.exports = {
     GetAllProducts, 
     SeacrhProduct, 
     AddProduct,
-    UpdateProduct,
+    UpdateProductAll,
+    UpdateProductName,
+    UpdateProductPrice,
+    UpdateProductImage,
     DeleteProduct
 };

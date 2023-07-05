@@ -36,7 +36,7 @@ const RegisterView = (props)=>{
                         <h2>{props.selectedPage} As <span style = {{color : props.selectedRole === "Admin"? 'blueviolet' : 'black'}} ref={statusReff}>{props.selectedRole}</span></h2>
                         <div className="inputbox-register">
                             <input type="text" required = "true" onChange={(e) => { setId(e.target.value) }}/>
-                            <label for="">Id Starts With P10...</label>
+                            <label for="">Id Starts With P...</label>
                         </div>
                         <div className="inputbox-register">
                             <input type="text" required = "true" onChange={(e) => { setName(e.target.value) }}/>

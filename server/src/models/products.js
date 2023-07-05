@@ -15,9 +15,25 @@ exports.AddProduct = (req)=>{
     return {sqlQuery, checker};
 }
 
-exports.UpdateProduct = (req)=>{
-    const { name, id_product, price, image } = req.query;
-    const sqlQuery = `UPDATE product SET name = '${name}', price = ${price}, image = '${image}' WHERE id_product = '${id_product}'`;
+exports.UpdateProductAll = (req)=>{
+    const { name, id_product, price, image} = req.query;
+    const sqlQuery = `UPDATE product SET name = '${name}', price = ${price}, image= '${image}' WHERE id_product = '${id_product}'`;
+    return {sqlQuery};
+}
+
+exports.UpdateProductName = (req)=>{
+    const { name, id_product} = req.query;
+    const sqlQuery = `UPDATE product SET name = '${name}' WHERE id_product = '${id_product}'`;
+    return {sqlQuery};
+}
+exports.UpdateProductPrice = (req)=>{
+    const {id_product, price} = req.query;
+    const sqlQuery = `UPDATE product SET price = ${price} WHERE id_product = '${id_product}'`;
+    return {sqlQuery};
+}
+exports.UpdateProductImage = (req)=>{
+    const { id_product, image } = req.query;
+    const sqlQuery = `UPDATE product SET image = '${image}' WHERE id_product = '${id_product}'`;
     return {sqlQuery};
 }
 
