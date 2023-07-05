@@ -92,7 +92,7 @@ const UpdateProduct = ()=>{
         </div>
       </div>
       <button type="submit" className={AddP["submit-button"]}
-      onClick={(e) =>{handleSubmitAll(e,  name, id_product,price, image)}}>Update</button>
+      onClick={(e) =>{handleSubmitAll(e,  name, id_product,price, image)}}>Update All</button>
     </form>
       <div className={AddP["cart-items"]}>
       </div>

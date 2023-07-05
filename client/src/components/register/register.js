@@ -57,7 +57,7 @@ const RegisterView = (props)=>{
                         <button className = "loginbutton"onClick={(e) => { handleSubmit(e, name, id, email, password, verifyPassword) }}>{props.selectedPage}</button>
                         <div className="back-to-login">
                             <i className = "fas fa-arrow-left"></i>
-                            <a onClick={()=> navigate(`/${props.roleLoginPage}`)}> Back to Login</a>
+                            <a onClick={()=> navigate(`/${props.roleLoginPage}`)}> Back</a>
                         </div>
                     </form>
                 </div>

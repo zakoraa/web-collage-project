@@ -36,8 +36,8 @@ const AddProduct = async(req,res)=>{
     }
 }
 
-const UpdateProductAll = async(req,res) =>{
-    const model = await ProductModel.UpdateProductAll(req);
+const UpdateAllProduct = async(req,res) =>{
+    const model = await ProductModel.UpdateAllProduct(req);
     db.query(model.sqlQuery, (err,result)=>{
         if(err) res.send(err);
         res.send({
@@ -92,7 +92,7 @@ module.exports = {
     GetAllProducts, 
     SeacrhProduct, 
     AddProduct,
-    UpdateProductAll,
+    UpdateAllProduct,
     UpdateProductName,
     UpdateProductPrice,
     UpdateProductImage,

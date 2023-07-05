@@ -15,7 +15,7 @@ exports.AddProduct = (req)=>{
     return {sqlQuery, checker};
 }
 
-exports.UpdateProductAll = (req)=>{
+exports.UpdateAllProduct = (req)=>{
     const { name, id_product, price, image} = req.query;
     const sqlQuery = `UPDATE product SET name = '${name}', price = ${price}, image= '${image}' WHERE id_product = '${id_product}'`;
     return {sqlQuery};

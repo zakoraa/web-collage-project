@@ -27,13 +27,20 @@ const AdminHomePage =()=>{
     const HandleToUserHasProuductTable = () =>{
         navigate('/home/admin/tableuserhasproduct');
     }
+    const HandleToAdminRegister = () =>{
+        navigate('/register/admin');
+    }
 
     return(
         <>
         <div className={HomeAdmin["container"]}>
         <button className={HomeAdmin["logout-button"]} onClick={handleLogout}>
-      <FaSignOutAlt className={HomeAdmin["logout-icon"]} /> Logout
+      <FaSignOutAlt className={HomeAdmin["logout-icon"]}  /> Logout
     </button>
+    <div>
+    <button className={HomeAdmin["admin-register"] } onClick={HandleToAdminRegister}>Register</button>
+
+    </div>
             <div className={HomeAdmin["products"]}>        
             <ProductView isAdmin = {isAdmin}/>
             </div>  
