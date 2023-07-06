@@ -5,9 +5,8 @@ import axios from "axios";
 import UserIdContext from '../../provider/provider';
 
 const LoginView = (props)=>{
-    // const [userId, setUserId] = useContext(UserIdContext);
     const navigate = useNavigate();
-    const [userId, setUserId] = useState('');
+    const { setUserId } = useContext(UserIdContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -22,12 +21,14 @@ const LoginView = (props)=>{
         console.log(email);
         console.log(password);
         const res = await axios.post(`http://localhost:3000/?email=${email}&password=${password}`);
-        const user_id = res.data.id;
-        setUserId(user_id); 
+        const userId = res.data.id;
+        setUserId(userId);
+        console.log("ininlo ",userId);
+        console.log("bang ",res.data);
         if (res.data.message === "success" && res.data.role === "user") {
-            navigate(`/home/${user_id}`);
+            navigate(`/home/${userId}`);
         }else if(res.data.message === "success" && res.data.role === "admin") {
-            navigate(`/home/admin/${user_id}`);
+            navigate(`/home/admin/${userId}`);
         }
     }
     return (

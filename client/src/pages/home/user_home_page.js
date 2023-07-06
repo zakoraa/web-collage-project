@@ -10,7 +10,7 @@ import UpdateUser from "../../components/updateUser/update_user";
 import UserIdContext from '../../provider/provider';
 
 function UserHomePage() {
-  const [userId, setUserId] = useState("");
+  // const [userId, setUserId] = useState("");
     const [login, setLogin] = useState('');
     const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);
     const navigate = useNavigate();
@@ -55,37 +55,32 @@ function UserHomePage() {
 
       return (
         <section>
-        <div className={HomeUser["container"]}>
+          <div className={HomeUser["container"]}>
             <div className={HomeUser["products"]}>
-            <button className={HomeUser["logout-button"]} onClick={handleLogout}>
-      <FaSignOutAlt className={HomeUser["logout-icon"]} /> Logout
-    </button>
-    {/* <button class={HomeUser["update-button"]} onClick={showUpdatePopup}><FaUser size={18} color="white" style={{
-      marginRight: 10,
-      alignItems : "center",
-      justifyContent : "center",
-      display : "flex"
-    }} className="custom-icon" />Update Your Data</button> */}
-    {/* <>{isUpdatePopupOpen && (
-        <div className={Product["search-overlay"]}>
-          <div className={Product["search-popup"]}>
-            <span className={Product["close"]} onClick={hideUpdatePopup}>&times;</span>
-        <UserIdContext.Provider value={{ userId, setUserId }}>
-          
-          <UpdateUser />
-        </UserIdContext.Provider>
-
-        </div>
-        </div>)}</> */}
-  <ProductView 
-            isAdmin = {isAdmin}
-            cartItems={cartItems} setCartItems={setCartItems}/>
-            
+              <button className={HomeUser["logout-button"]} onClick={handleLogout}>
+                <FaSignOutAlt className={HomeUser["logout-icon"]} /> Logout
+              </button>
+              <button class={HomeUser["update-button"]} onClick={showUpdatePopup}><FaUser size={18} color="white" style={{
+                marginRight: 10,
+                alignItems : "center",
+                justifyContent : "center",
+                display : "flex"
+              }} className="custom-icon" />Update Your Data</button>
+              <>
+              {isUpdatePopupOpen && (
+                  <div className={Product["search-overlay"]}>
+                    <div className={Product["search-popup"]}>
+                      <span className={Product["close"]} onClick={hideUpdatePopup}>&times;</span>    
+                        <UpdateUser />
+                    </div>
+                  </div>)
+              }
+              </>
+              <ProductView isAdmin = {isAdmin} cartItems={cartItems} setCartItems={setCartItems}/>
             </div>
-        <ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} className={HomeUser["cart"]}/>
-        
-        </div>  
-    </section>
+            <ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} className={HomeUser["cart"]}/>
+          </div>  
+        </section>
       );
 
         

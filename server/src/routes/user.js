@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/get', UserController.GetAllUsers);
 router.post('/updateall', UserController.UpdateAllUser);
-router.post('/updateaddress', UserController.UpdateUserName);
+router.post('/updatename', UserController.UpdateUserName);
 router.post('/updateaddress', UserController.UpdateUserAddress);
 router.post('/updatephone', UserController.UpdateUserPhoneNumber);
 router.post('/updateemail', UserController.UpdateUserEmail);

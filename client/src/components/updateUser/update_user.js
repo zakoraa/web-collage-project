@@ -1,73 +1,86 @@
 import AddP from '../addProduct/add_product.module.css';
 import axios from "axios";
-import { useEffect,useState,useContext } from "react";
+import { useState,useContext } from "react";
 import UserIdContext from '../../provider/provider';
+import { Alert } from 'react-bootstrap';
 
 const UpdateUser = ()=>{
-    const userIdContext  = useContext(UserIdContext);
-    // const userId = useContext(UserIdContext);
-    const [name, setName] = useState();
-    const [id_user, setId] = useState();
-    const [address, setAddress] = useState();
-    const [phone_number, setPhoneNumber] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
-  const handleSubmitAll= async (e, name, id_user, address,phone_number, email, password) => {
+  const { userId } = useContext(UserIdContext);
+  // const userId = useContext(UserIdContext);
+  const [name, setName] = useState();
+  // const [id_user, setId] = useState();
+  const [address, setAddress] = useState();
+  const [phone_number, setPhoneNumber] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  
+  const handleAlertClose = () => {
+    setShowAlert(false);
+  };
+
+  const handleAlertShow = (message) => {
+    setShowAlert(true);
+    setAlertMessage(message);
+  };
+
+  const handleSubmitAll= async (e, name, userId, address,phone_number, email, password) => {
     e.preventDefault();
-        const res = await axios.post(`http://localhost:3000/user/updateall?name=${name}&id_user=${id_user}&address=${address}&phone_number=${phone_number}&email=${email}&password=${password}`);
+        const res = await axios.post(`http://localhost:3000/user/updateall?name=${name}&id_user=${userId}&address=${address}&phone_number=${phone_number}&email=${email}&password=${password}`);
         if (res.data.message === "Update Success") {
-          window.location.reload();
+        handleAlertShow("Update All Success");
           return;
     }
   }
-  const handleSubmitName = async (e, id_user,name ) => {
+  const handleSubmitName = async (e, userId,name ) => {
     e.preventDefault();
-        const res = await axios.post(`http://localhost:3000/user/updatename?name=${name}&id_user=${id_user}`);
-        console.log("name ",name,id_user); 
+        const res = await axios.post(`http://localhost:3000/user/updatename?name=${name}&id_user=${userId}`);
+        console.log("name ",name,userId); 
         if (res.data.message === "Update Success") {
-          window.location.reload();
+        handleAlertShow("Update Name Success");
           return;
     }
   }
-  const handleSubmitAddress = async (e,id_user, address) => {
+  const handleSubmitAddress = async (e,userId, address) => {
     e.preventDefault();
-        const res = await axios.post(`http://localhost:3000/user/updateaddress?id_user=${id_user}&address=${address}`);
-        console.log("address ",id_user, address);
+        const res = await axios.post(`http://localhost:3000/user/updateaddress?id_user=${userId}&address=${address}`);
+        console.log("address ",userId, address);
         if (res.data.message === "Update Success") {
-          window.location.reload();
+        handleAlertShow("Update Address Success");
           return;
     }
   }
-  const handleSubmitPhoneNumber = async (e, id_user, phone_number) => {
+  const handleSubmitPhoneNumber = async (e, userId, phone_number) => {
     e.preventDefault();
-        const res = await axios.post(`http://localhost:3000/user/updatephone_number?id_user=${id_user}&phone_number=${phone_number}`);
-        console.log("phone_number ",id_user, phone_number);
+        const res = await axios.post(`http://localhost:3000/user/updatephone?id_user=${userId}&phone_number=${phone_number}`);
+        console.log("phone_number ",userId, phone_number);
         if (res.data.message === "Update Success") {
-          window.location.reload();
+        handleAlertShow("Update Phone Number Success");
           return;
     }
   }
-  const handleSubmitEmail = async (e, id_user, email) => {
+  const handleSubmitEmail = async (e, userId, email) => {
     e.preventDefault();
-        const res = await axios.post(`http://localhost:3000/user/updateemail?id_user=${id_user}&email=${email}`);
-        console.log("email ",id_user, email);
+        const res = await axios.post(`http://localhost:3000/user/updateemail?id_user=${userId}&email=${email}`);
+        console.log("email ",userId, email);
         if (res.data.message === "Update Success") {
-          window.location.reload();
+        handleAlertShow("Update Email Success");
           return;
     }
   }
-  const handleSubmitPassword = async (e, id_user, password) => {
+  const handleSubmitPassword = async (e, userId, password) => {
     e.preventDefault();
-        const res = await axios.post(`http://localhost:3000/user/updatepassword?id_user=${id_user}&password=${password}`);
-        console.log("password ",id_user, password);
+        const res = await axios.post(`http://localhost:3000/user/updatepassword?id_user=${userId}&password=${password}`);
+        console.log("password ",userId, password);
         if (res.data.message === "Update Success") {
-          window.location.reload();
+        handleAlertShow("Update Password Success");
           return;
     }
   }
 
- console.log( "all ",name, id_user, address,phone_number);
+ console.log( "all ",name, userId, address,phone_number);
     return (
       <div className={AddP["cart"]}>
       <h2>Update Your Data</h2>
@@ -78,7 +91,7 @@ const UpdateUser = ()=>{
         <input type="text" id="name" className={AddP.inputText}  
          onChange={(e) => { setName(e.target.value) }}/>
           <button  className={AddP["submit-right"]}
-      type="button" onClick={(e) =>{handleSubmitName(e, userIdContext.userId,name)}}
+      type="button" onClick={(e) =>{handleSubmitName(e, userId,name)}}
       >Update Name</button>
         </div>
       </div>
@@ -88,7 +101,7 @@ const UpdateUser = ()=>{
         <input type="text" id="address" className={AddP.inputText}  
          onChange={(e) => { setAddress(e.target.value) }}/>
           <button  className={AddP["submit-right"]}
-      type="button" onClick={(e) =>{handleSubmitAddress(e, userIdContext.userId,address)}}
+      type="button" onClick={(e) =>{handleSubmitAddress(e, userId,address)}}
       >Update Address</button>
         </div>
       </div>
@@ -98,7 +111,7 @@ const UpdateUser = ()=>{
         <input type="text" id="phone_number" className={AddP.inputText}  
          onChange={(e) => { setPhoneNumber(e.target.value) }}/>
           <button  className={AddP["submit-right"]}
-     type="button" onClick={(e) =>{handleSubmitPhoneNumber(e, userIdContext.userId,phone_number)}}
+     type="button" onClick={(e) =>{handleSubmitPhoneNumber(e, userId,phone_number)}}
       >Update Number</button>
         </div>
       </div>
@@ -108,7 +121,7 @@ const UpdateUser = ()=>{
         <input type="text" id="email" className={AddP.inputText}  
          onChange={(e) => { setEmail(e.target.value) }}/>
           <button  className={AddP["submit-right"]}
-     type="button" onClick={(e) =>{handleSubmitEmail(e, userIdContext.userId,email)}}
+     type="button" onClick={(e) =>{handleSubmitEmail(e, userId,email)}}
       >Update Email</button>
         </div>
       </div>
@@ -118,15 +131,18 @@ const UpdateUser = ()=>{
         <input type="text" id="password" className={AddP.inputText}  
          onChange={(e) => { setPassword(e.target.value) }}/>
           <button  className={AddP["submit-right"]}
-     type="button" onClick={(e) =>{handleSubmitPassword(e, userIdContext.userId,password)}}
+     type="button" onClick={(e) =>{handleSubmitPassword(e, userId,password)}}
       >Update Password</button>
         </div>
       </div>
       <button type="submit" className={AddP["submit-button"]}
-      onClick={(e) =>{handleSubmitAll(e,  name, userIdContext.userId,address, phone_number)}}>Update All</button>
+      onClick={(e) =>{handleSubmitAll(e,  name, userId,address, phone_number)}}>Update All</button>
     </form>
-      <div className={AddP["cart-items"]}>
-      </div>
+    {showAlert && (
+        <Alert variant="success" onClose={handleAlertClose} dismissible>
+          {alertMessage}
+        </Alert>
+      )}
     </div>
     );
 }

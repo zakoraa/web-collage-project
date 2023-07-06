@@ -9,9 +9,11 @@ import AdminHomePage from './pages/home/admin_home_page';
 import UserTableView from './components/tableVIew/user';
 import TransactionTableView from './components/tableVIew/transaction';
 import UserHasProductTableView from './components/tableVIew/user_has_product';
+import { UserIdProvider } from "./provider/provider";
 
 function App() {
   return (
+    <UserIdProvider>
     <Router>
       <Routes>
         <Route path = "/" element = {<UserLoginPage/>} />
@@ -25,6 +27,7 @@ function App() {
         <Route path = "/register/admin" element = {<AdminRegisterPage/>} />
       </Routes>
     </Router>
+    </UserIdProvider>
   );
 }
 
