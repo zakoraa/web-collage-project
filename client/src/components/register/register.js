@@ -1,9 +1,12 @@
 import './register.css'; 
 import { useNavigate } from 'react-router-dom';
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
+import { Alert } from 'react-bootstrap';
 
 const RegisterView = (props)=>{
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
     const statusReff = useRef();
     const navigate = useNavigate();
     const [name, setName] = useState();
@@ -13,10 +16,19 @@ const RegisterView = (props)=>{
     const [password, setPassword] = useState();
     const [verifyPassword, setVerifyPassword] = useState();
     
+    const handleAlertClose = () => {
+        setShowAlert(false);
+      };
+    
+      const handleAlertShow = (message) => {
+        setShowAlert(true);
+        setAlertMessage(message);
+      };
+
     const handleSubmit = async (e, name, id, email, password, verifyPassword, role) => {
         e.preventDefault();
         if (password === verifyPassword) {
-            if (id == undefined || id == '') return statusReff.current.innerHTML = `ID can be ${id}`; statusReff.current.style.color = "red";
+            if (id == undefined || id == '' || email == undefined || email == '' || password == undefined || password == '' || name == undefined || name == '' || verifyPassword == undefined || verifyPassword == ''   ) return handleAlertShow(`Please fill in the data !`);
             const res = await axios.post(`http://localhost:3000/register?name=${name}&id=${id}&email=${email}&password=${password}&role=${role}`);
             setRole(res.data.role);
             console.log("inin bro", role);
@@ -26,12 +38,10 @@ const RegisterView = (props)=>{
             } else if(res.data.message === "success" && role === "user"){
                 navigate("/");
             }else {
-                statusReff.current.innerHTML = "ID or Email Already used!";
-                statusReff.current.style.color = "red";
+                handleAlertShow("ID or Email Already used!");
             }
         } else {
-            statusReff.current.innerHTML = "Password doesn't match !";
-            statusReff.current.style.color = "red";
+            handleAlertShow("Password doesn't match !");
         }
     }
     return (
@@ -39,7 +49,14 @@ const RegisterView = (props)=>{
             <div className="form-box-register">
                 <div className="form-value-register">
                     <form action="">
-                        <h2>{props.selectedPage} As <span style = {{color : props.selectedRole === "Admin"? 'blueviolet' : 'black'}} ref={statusReff}>{props.selectedRole}</span></h2>
+                        <h2>{props.selectedPage} As <span style = {{color : props.selectedRole === "Admin"? 'blueviolet' : 'black'}}>{props.selectedRole}</span></h2>
+                        <>
+                            {showAlert && (
+                                <Alert variant="danger" onClose={handleAlertClose} dismissible>
+                                {alertMessage}
+                                </Alert>
+                            )}
+                        </>
                         <div className="inputbox-register">
                             <input type="text" required = "true" onChange={(e) => { setId(e.target.value) }}/>
                             <label for="">Id Starts With P...</label>

@@ -1,14 +1,26 @@
 import Cart from './shopping_cart.module.css';
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import { Alert } from 'react-bootstrap';
 
 const ShoppingCart = ({cartItems, removeFromCart})=>{
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
   const [idUserFK, setIdUserFK] = useState();
   const [totalPrice, setTotalPrice]= useState();
   const [transactionId, setTransactionId] = useState();
   const [allTransaction, setAllTransaction] = useState([]);
   const [allUserHasProduct, setAllUserHasProduct] = useState([]);
   axios.defaults.withCredentials = true;
+
+  const handleAlertClose = () => {
+    setShowAlert(false);
+  };
+
+  const handleAlertShow = (message) => {
+    setShowAlert(true);
+    setAlertMessage(message);
+  };
 
     useEffect (()=>{
         const fetchData = async()=>{
@@ -72,8 +84,10 @@ const ShoppingCart = ({cartItems, removeFromCart})=>{
     removeFromCart(item);}
 
   const handleSubmit = ()=>{
-    window.location.reload();
-
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+    handleAlertShow("Product Successfully Purchased");
   }
 
     return(
@@ -86,7 +100,11 @@ const ShoppingCart = ({cartItems, removeFromCart})=>{
         className={Cart["buy-product"]} 
         onClick={handleSubmit}
        >Buy Now </button>}
-     
+      {showAlert && (
+        <Alert variant="success" onClose={handleAlertClose} dismissible>
+          {alertMessage}
+        </Alert>
+      )}
       <div className={Cart["cart-items"]}>
             {mergedArray.map(item => (
               <li key={item.transaction_id} className={Cart["cart-item"]}>

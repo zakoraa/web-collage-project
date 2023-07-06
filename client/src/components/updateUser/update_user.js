@@ -7,11 +7,8 @@ import { Alert } from 'react-bootstrap';
 const UpdateUser = ()=>{
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-
   const { userId } = useContext(UserIdContext);
-  // const userId = useContext(UserIdContext);
   const [name, setName] = useState();
-  // const [id_user, setId] = useState();
   const [address, setAddress] = useState();
   const [phone_number, setPhoneNumber] = useState();
   const [email, setEmail] = useState();
@@ -39,7 +36,7 @@ const UpdateUser = ()=>{
         const res = await axios.post(`http://localhost:3000/user/updatename?name=${name}&id_user=${userId}`);
         console.log("name ",name,userId); 
         if (res.data.message === "Update Success") {
-        handleAlertShow("Update Name Success");
+          handleAlertShow("Update Name Success");
           return;
     }
   }
