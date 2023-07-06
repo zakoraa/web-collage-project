@@ -28,7 +28,12 @@ const RegisterView = (props)=>{
     const handleSubmit = async (e, name, id, email, password, verifyPassword, role) => {
         e.preventDefault();
         if (password === verifyPassword) {
-            if (id == undefined || id == '' || email == undefined || email == '' || password == undefined || password == '' || name == undefined || name == '' || verifyPassword == undefined || verifyPassword == ''   ) return handleAlertShow(`Please fill in the data !`);
+            if (id == undefined || id == '' || email == undefined || email == '' || password == undefined || password == '' || name == undefined || name == '' || verifyPassword == undefined || verifyPassword == '' ) {
+                setTimeout(() => {
+                        setShowAlert(false);          
+                    }, 3000);
+                    handleAlertShow(`Please fill in the data !`);     
+                }
             const res = await axios.post(`http://localhost:3000/register?name=${name}&id=${id}&email=${email}&password=${password}&role=${role}`);
             setRole(res.data.role);
             console.log("inin bro", role);
@@ -38,9 +43,15 @@ const RegisterView = (props)=>{
             } else if(res.data.message === "success" && role === "user"){
                 navigate("/");
             }else {
+                setTimeout(() => {
+                    setShowAlert(false);          
+                }, 3000);
                 handleAlertShow("ID or Email Already used!");
             }
         } else {
+            setTimeout(() => {
+                setShowAlert(false);          
+            }, 3000);
             handleAlertShow("Password doesn't match !");
         }
     }
