@@ -12,9 +12,9 @@ import UserIdContext from '../../provider/provider';
 function UserHomePage() {
   // const [userId, setUserId] = useState("");
     const [login, setLogin] = useState('');
-    const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);
     const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
+    const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);
 
     const removeFromCart = (item) => {
       const updatedCartItems = cartItems.filter((cartItem) => cartItem.id_product !== item);

@@ -32,7 +32,7 @@
 
   .logout-button {
     position: absolute;
-    top: 15px;
+    top: 5px;
     left: 30px;
     height: 45px;
     width: 125px;
@@ -52,7 +52,7 @@
 
   .admin-register{
     position: absolute;
-    top: 15px;
+    top: 5px;
     right: 30px;
     height: 45px;
     width: 125px;
@@ -106,4 +106,28 @@
     justify-content: center;
     align-items: center;
 
+  }
+
+  .update-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 65px;
+    right: 30px;
+    height: 45px;
+    width: 230px;
+    margin-top: 30px;
+    padding: 10px 20px;
+    color: #ffffff;
+    background-color: rgb(27, 27, 27);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .update-button:hover {
+    background-color: rgb(56, 55, 55);
   }

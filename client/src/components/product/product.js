@@ -108,7 +108,7 @@ return(
       }}>ASUS OFFICIAL STORE</h2>
       {!isAdmin && (
         <div style={{
-          marginTop : 70
+          marginTop : 70,
         }}></div>
       )}
       {isAdmin && (<div style={{display:'flex' ,flexWrap : 'wrap', alignItems : 'center', justifyContent: 'center', marginTop : 30, marginBottom : 20, marginLeft : 30}}>
