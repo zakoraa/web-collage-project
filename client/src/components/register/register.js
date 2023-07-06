@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useRef, useState } from "react";
 import axios from "axios";
 import { Alert } from 'react-bootstrap';
+import {v4 as uuidV4} from "uuid";
 
 const RegisterView = (props)=>{
-    const [showAlert, setShowAlert] = useState(false);
-    const [alertMessage, setAlertMessage] = useState('');
-    const statusReff = useRef();
+    const [showAlertFailed, setShowAlertFailed] = useState(false);
+    const [alertMessageFailed, setAlertMessageFailed] = useState('');
+    const [showAlertSuccess, setShowAlertSuccess] = useState(false);
+    const [alertMessageSuccess, setAlertMessageSuccess] = useState('');
     const navigate = useNavigate();
     const [name, setName] = useState();
     const [role, setRole] = useState();
@@ -16,13 +18,21 @@ const RegisterView = (props)=>{
     const [password, setPassword] = useState();
     const [verifyPassword, setVerifyPassword] = useState();
     
-    const handleAlertClose = () => {
-        setShowAlert(false);
+    const handleAlertCloseFailed = () => {
+        setShowAlertFailed(false);
       };
     
-      const handleAlertShow = (message) => {
-        setShowAlert(true);
-        setAlertMessage(message);
+      const handleAlertShowFailed = (message) => {
+        setShowAlertFailed(true);
+        setAlertMessageFailed(message);
+      };
+    const handleAlertCloseSuccess = () => {
+        setShowAlertSuccess(false);
+      };
+    
+      const handleAlertShowSuccess = (message) => {
+        setShowAlertSuccess(true);
+        setAlertMessageSuccess(message);
       };
 
     const handleSubmit = async (e, name, id, email, password, verifyPassword, role) => {
@@ -30,29 +40,33 @@ const RegisterView = (props)=>{
         if (password === verifyPassword) {
             if (id == undefined || id == '' || email == undefined || email == '' || password == undefined || password == '' || name == undefined || name == '' || verifyPassword == undefined || verifyPassword == '' ) {
                 setTimeout(() => {
-                        setShowAlert(false);          
+                        setShowAlertFailed(false);          
                     }, 3000);
-                    handleAlertShow(`Please fill in the data !`);     
+                    handleAlertShowFailed(`Please fill in the data !`);     
                 }
             const res = await axios.post(`http://localhost:3000/register?name=${name}&id=${id}&email=${email}&password=${password}&role=${role}`);
             setRole(res.data.role);
             console.log("inin bro", role);
             console.log(id);
             if (res.data.message === "success" && role === "admin") {
-                navigate(`/home/admin/${res.data.id}`);
+                setTimeout(() => {
+                    setShowAlertSuccess(false); 
+                    window.location.reload();         
+                }, 3000);
+                handleAlertShowSuccess("Register Success");
             } else if(res.data.message === "success" && role === "user"){
                 navigate("/");
             }else {
                 setTimeout(() => {
-                    setShowAlert(false);          
+                    setShowAlertFailed(false);          
                 }, 3000);
-                handleAlertShow("ID or Email Already used!");
+                handleAlertShowFailed("ID or Email Already used!");
             }
         } else {
             setTimeout(() => {
-                setShowAlert(false);          
+                setShowAlertFailed(false);          
             }, 3000);
-            handleAlertShow("Password doesn't match !");
+            handleAlertShowFailed("Password doesn't match !");
         }
     }
     return (
@@ -62,16 +76,19 @@ const RegisterView = (props)=>{
                     <form action="">
                         <h2>{props.selectedPage} As <span style = {{color : props.selectedRole === "Admin"? 'blueviolet' : 'black'}}>{props.selectedRole}</span></h2>
                         <>
-                            {showAlert && (
-                                <Alert variant="danger" onClose={handleAlertClose} dismissible>
-                                {alertMessage}
+                            {showAlertFailed && (
+                                <Alert variant="danger" onClose={handleAlertCloseFailed} dismissible>
+                                {alertMessageFailed}
                                 </Alert>
                             )}
                         </>
-                        <div className="inputbox-register">
-                            <input type="text" required = "true" onChange={(e) => { setId(e.target.value) }}/>
-                            <label for="">Id Starts With P...</label>
-                        </div>
+                        <>
+                            {showAlertSuccess && (
+                                <Alert variant="success" onClose={handleAlertCloseSuccess} dismissible>
+                                {alertMessageSuccess}
+                                </Alert>
+                            )}
+                        </>
                         <div className="inputbox-register">
                             <input type="text" required = "true" onChange={(e) => { setName(e.target.value) }}/>
                             <label for="">Name </label>
@@ -88,7 +105,7 @@ const RegisterView = (props)=>{
                             <input type="password" required = "true" onChange={(e) => { setVerifyPassword(e.target.value) }}/>
                             <label for="">Confirm Your Password </label>
                         </div>
-                        <button className = "loginbutton"onClick={(e) => { handleSubmit(e, name, id, email, password, verifyPassword, props.selectedRoleUser) }}>{props.selectedPage}</button>
+                        <button className = "loginbutton"onClick={(e) => { handleSubmit(e, name, (props.roleId + uuidV4()), email, password, verifyPassword, props.selectedRoleUser) }}>{props.selectedPage}</button>
                         <div className="back-to-login">
                             <i className = "fas fa-arrow-left"></i>
                             <a onClick={()=> navigate(`/${props.roleLoginPage}`)}> Back</a>

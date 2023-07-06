@@ -1,6 +1,7 @@
 import AddP from './add_product.module.css';
 import { useState } from "react";
 import axios from "axios";
+import {v4 as uuidV4} from "uuid";
 
 const AddProduct = ()=>{
     const [name, setName] = useState();
@@ -21,14 +22,6 @@ const AddProduct = ()=>{
       <h2>Add Product</h2>
       <form className={AddP["form-container"]} >
       <div>
-        <label className={AddP["label"]} htmlFor="id">Id :</label>
-        <p style = {{
-          fontWeight : 'lighter'
-        }}className={AddP["label"]}>Id Starts from B...</p>
-        <input type="text" id="id"className={AddP.inputText} 
-        required = "true" onChange={(e) => { setId(e.target.value) }}/>
-      </div>
-      <div>
         <label className={AddP["label"]} htmlFor="name">Name :</label>
         <input type="text" id="name"className={AddP.inputText} 
         required = "true" onChange={(e) => { setName(e.target.value) }}/>
@@ -44,7 +37,7 @@ const AddProduct = ()=>{
         required = "true" onChange={(e) => { setImage(e.target.value) }}/>
       </div>
       <button type="submit" className={AddP["submit-button"]}
-      onClick={(e) =>{handleSubmit(e,  name,id_product,price, image)}}>Add</button>
+      onClick={(e) =>{handleSubmit(e,  name,("B" + uuidV4()),price, image)}}>Add</button>
     </form>
       <div className={AddP["cart-items"]}>
       </div>

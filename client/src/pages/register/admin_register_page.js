@@ -12,7 +12,7 @@ const AdminRegisterPage =()=>{
     //     });
     return (
         <RegisterView selectedRole= "Admin" role = "User" selectedPage = "Register"
-        homePage = "home" roleLoginPage = "home/admin/:id" roleRegisterPage = "home/admin" selectedRoleUser = "admin" />
+        homePage = "home" roleLoginPage = "home/admin/:id" roleRegisterPage = "home/admin" selectedRoleUser = "admin" roleId = "P0" />
     );
 }
 
