@@ -9,10 +9,10 @@ const AdminRegisterPage =()=>{
     //     .then((res) => {
     //         if (res.data.login) navigate("/home");
     //         return;
-    //     })
+    //     });
     return (
         <RegisterView selectedRole= "Admin" role = "User" selectedPage = "Register"
-        homePage = "home" roleLoginPage = "home/admin/:id" roleRegisterPage = "home/admin" />
+        homePage = "home" roleLoginPage = "home/admin/:id" roleRegisterPage = "home/admin" selectedRoleUser = "admin" />
     );
 }
 

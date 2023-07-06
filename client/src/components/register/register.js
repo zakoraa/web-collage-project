@@ -1,25 +1,31 @@
 import './register.css'; 
 import { useNavigate } from 'react-router-dom';
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 
 const RegisterView = (props)=>{
     const statusReff = useRef();
     const navigate = useNavigate();
     const [name, setName] = useState();
+    const [role, setRole] = useState();
     const [id, setId] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [verifyPassword, setVerifyPassword] = useState();
-    const handleSubmit = async (e, name, id, email, password, verifyPassword) => {
+    
+    const handleSubmit = async (e, name, id, email, password, verifyPassword, role) => {
         e.preventDefault();
         if (password === verifyPassword) {
-            console.log(id);
             if (id == undefined || id == '') return statusReff.current.innerHTML = `ID can be ${id}`; statusReff.current.style.color = "red";
-            const res = await axios.post(`http://localhost:3000/register?name=${name}&id=${id}&email=${email}&password=${password}`);
-            if (res.data.message === "success") {
-                navigate(`/home/${res.data.id}`);
-            } else {
+            const res = await axios.post(`http://localhost:3000/register?name=${name}&id=${id}&email=${email}&password=${password}&role=${role}`);
+            setRole(res.data.role);
+            console.log("inin bro", role);
+            console.log(id);
+            if (res.data.message === "success" && role === "admin") {
+                navigate(`/home/admin/${res.data.id}`);
+            } else if(res.data.message === "success" && role === "user"){
+                navigate("/");
+            }else {
                 statusReff.current.innerHTML = "ID or Email Already used!";
                 statusReff.current.style.color = "red";
             }
@@ -54,7 +60,7 @@ const RegisterView = (props)=>{
                             <input type="password" required = "true" onChange={(e) => { setVerifyPassword(e.target.value) }}/>
                             <label for="">Confirm Your Password </label>
                         </div>
-                        <button className = "loginbutton"onClick={(e) => { handleSubmit(e, name, id, email, password, verifyPassword) }}>{props.selectedPage}</button>
+                        <button className = "loginbutton"onClick={(e) => { handleSubmit(e, name, id, email, password, verifyPassword, props.selectedRoleUser) }}>{props.selectedPage}</button>
                         <div className="back-to-login">
                             <i className = "fas fa-arrow-left"></i>
                             <a onClick={()=> navigate(`/${props.roleLoginPage}`)}> Back</a>

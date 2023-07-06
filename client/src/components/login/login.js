@@ -1,10 +1,13 @@
 import './login.css'; 
 import {useNavigate}  from 'react-router-dom';
-import { useEffect, useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import UserIdContext from '../../provider/provider';
 
-const LoginView = (props,)=>{
+const LoginView = (props)=>{
+    // const [userId, setUserId] = useContext(UserIdContext);
     const navigate = useNavigate();
+    const [userId, setUserId] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -19,12 +22,12 @@ const LoginView = (props,)=>{
         console.log(email);
         console.log(password);
         const res = await axios.post(`http://localhost:3000/?email=${email}&password=${password}`);
-        console.log(res.data.id);
+        const user_id = res.data.id;
+        setUserId(user_id); 
         if (res.data.message === "success" && res.data.role === "user") {
-            navigate(`/home/${res.data.id}`);
+            navigate(`/home/${user_id}`);
         }else if(res.data.message === "success" && res.data.role === "admin") {
-            // setUser(res.data.id.toString());
-            navigate(`/home/admin/${res.data.id}`);
+            navigate(`/home/admin/${user_id}`);
         }
     }
     return (
@@ -41,8 +44,9 @@ const LoginView = (props,)=>{
                             <input onChange={(e) => {setPassword(e.target.value) }}  type="password"/>
                             <label for="">Password </label>
                         </div>
-                        <button onClick={(e) => { handleSubmit(e, email, password) }} className = "loginbutton">{props.selectedPage}</button>
-                        
+                      
+                            <button onClick={(e) => { handleSubmit(e, email, password) }} className = "loginbutton">{props.selectedPage}</button>
+
                          <div className = "to-register">
                            <a onClick={()=> navigate(`/${props.roleRegisterPage}`)}>{props.toRegister}</a>
                        </div> 
