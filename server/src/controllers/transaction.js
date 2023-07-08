@@ -37,4 +37,5 @@ const DeleteTransaction = (req,res)=>{
 module.exports = {
     GetAllTransaction,
     AddTransaction,
-    DeleteTransaction};  
+    DeleteTransaction
+};  

@@ -3,7 +3,6 @@ exports.GetAllTransaction = ()=>{
     return {sqlQuery};
 }
 
-
 exports.AddTransaction = (req)=>{
     const {transaction_id, id_userFK, id_productFK, total_price} = req.query;
     const sqlQuery = `INSERT INTO transaction (id_userFK, id_productFK, total_price)

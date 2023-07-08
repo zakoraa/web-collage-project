@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const LoginModel = require('../models/login');
 const db = require('../config/database');
 
-
 const UserLogin = async(req,res)=>{
     const model = await LoginModel.UserLogin(req);
     db.query(model.sqlQuery, [model.values], (err,result)=>{
@@ -22,7 +21,5 @@ const UserLogin = async(req,res)=>{
             });}
 });
 }
-
-
 
 module.exports = {UserLogin};

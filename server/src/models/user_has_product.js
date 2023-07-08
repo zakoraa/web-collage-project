@@ -3,7 +3,6 @@ exports.GetAllUserHasProduct = ()=>{
     return {sqlQuery};
 }
 
-
 exports.AddUserHasProduct = (req)=>{
     const {id_userFK, id_productFK} = req.query;
     const sqlQuery = `INSERT INTO user_has_product(id_userFK, id_productFK)
