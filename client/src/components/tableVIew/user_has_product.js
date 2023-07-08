@@ -5,8 +5,6 @@ import Cart from '../shoppingCart/shopping_cart.module.css';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
-
-
 const UserHasProductTableView = () => {
     const [allUserHasProduct, setAllUserHasProduct] = useState([]);
     const navigate = useNavigate();

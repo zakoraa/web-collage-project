@@ -7,11 +7,8 @@ import ShoppingCart from "../../components/shoppingCart/shopping_cart";
 import ProductView from "../../components/product/product";
 import Product from "../../components/product/product.module.css";
 import UpdateUser from "../../components/updateUser/update_user";
-import UserIdContext from '../../provider/provider';
 
-function UserHomePage() {
-  // const [userId, setUserId] = useState("");
-    const [login, setLogin] = useState('');
+const UserHomePage= ()=> {
     const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
     const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);

@@ -5,7 +5,6 @@ import {v4 as uuidV4} from "uuid";
 
 const AddProduct = ()=>{
     const [name, setName] = useState();
-    const [id_product, setId] = useState();
     const [price, setPrice] = useState();
     const [image, setImage] = useState();
 

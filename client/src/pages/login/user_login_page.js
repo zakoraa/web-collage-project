@@ -1,6 +1,4 @@
 import LoginView from "../../components/login/login";
-import UserIdContext from '../../provider/provider';
-import {useState } from "react";
 
 const UserLoginPage = ()=>{
     return (

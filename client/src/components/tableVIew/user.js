@@ -2,10 +2,8 @@ import {useEffect, useState } from "react";
 import axios from "axios";
 import TableCSS from './table_view.module.css';
 import Cart from '../shoppingCart/shopping_cart.module.css';
-import { FaSignOutAlt, FaTrash } from 'react-icons/fa';
+import { FaSignOutAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-
-
 
 const UserTableView = () => {
     const [allUsers, setAllUsers] = useState([]);

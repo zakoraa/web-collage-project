@@ -1,6 +1,6 @@
 import './register.css'; 
 import { useNavigate } from 'react-router-dom';
-import { useRef, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { Alert } from 'react-bootstrap';
 import {v4 as uuidV4} from "uuid";
@@ -13,7 +13,6 @@ const RegisterView = (props)=>{
     const navigate = useNavigate();
     const [name, setName] = useState();
     const [role, setRole] = useState();
-    const [id, setId] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [verifyPassword, setVerifyPassword] = useState();

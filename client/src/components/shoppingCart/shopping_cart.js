@@ -6,11 +6,8 @@ import { Alert } from 'react-bootstrap';
 const ShoppingCart = ({cartItems, removeFromCart})=>{
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-  const [idUserFK, setIdUserFK] = useState();
-  const [totalPrice, setTotalPrice]= useState();
   const [transactionId, setTransactionId] = useState();
   const [allTransaction, setAllTransaction] = useState([]);
-  const [allUserHasProduct, setAllUserHasProduct] = useState([]);
   axios.defaults.withCredentials = true;
 
   const handleAlertClose = () => {
@@ -43,17 +40,6 @@ const ShoppingCart = ({cartItems, removeFromCart})=>{
   }
   
     };
-
-  useEffect(() => {
-    const calculateTotalPrice = () => {
-      const total = cartItems.reduce((accumulator, item) => {
-        return accumulator + item.price;
-      }, 0);
-      setTotalPrice(total);
-    };
-
-    calculateTotalPrice();
-  }, [cartItems]);
   // const handleBuyProducts = async(e,idUserFK, idProductFK,totalPrice)=>{
   //     e.preventDefault();
   //     const res = await axios.post(`http://localhost:3000/transaction/add?id_userFK=${idUserFK}&id_productFK=${idProductFK}&total_price=${totalPrice}`);
@@ -70,10 +56,6 @@ const ShoppingCart = ({cartItems, removeFromCart})=>{
   
     return mergedItem;
   });
-
-  
- 
-  // console.log("inin",mergedArray);
 
   // const handleRemoveItem = (e,transactionId,transaction_id) => {
   //   handleGetTransactionId(e,transactionId);
